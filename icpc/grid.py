@@ -2,7 +2,7 @@ from sys import stdin
 
 
 def grid_setup(matrix):
-    # N X M grid, N is the number of rows (x_axis)
+    # N X M grid
     n, m = (int)(matrix[0]), (int)(matrix[1])
 
     grid = []
@@ -25,10 +25,6 @@ def find_path(matrix):
 
         max_jump = grid[node[0]][node[1]]
 
-        if node == (n - 1, m-1):
-            print(node, (n-1, m-1))
-            return num_moves
-
         directions = [(node[1] + max_jump, node[0]),
                       (node[1] - max_jump, node[0]),
                       (node[1], node[0] + max_jump),
@@ -43,6 +39,10 @@ def find_path(matrix):
                 visited.add((next_node_y, next_node_x))
                 current_node.append(
                     ((next_node_y, next_node_x), num_moves + 1))
+
+        if node == (n - 1, m - 1):
+            return num_moves
+
     return -1
 
 
