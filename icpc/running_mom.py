@@ -37,13 +37,13 @@ def running_mom(from_parse):
         dfs(flight)
         if flight in visitting:
             res.append(flight + ' safe')
-    res.append(flight + ' trapped')
+        else:
+            res.append(flight + ' trapped')
 
     return '\n'.join(res)
 
 
 flights = []
-
 
 for flight in sys.stdin:
     flights.append(flight.split())
