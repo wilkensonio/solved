@@ -21,14 +21,6 @@ def connected(house):
     to_visite = []
     visited = set()
 
-    """
-    num_houses = 6
-    1, 2, 3, 4, 5, 6
-    visited = (1, 2, 3, 4)
-    houses = [1, 2, 3, 4, 5, 6, 7, 8]
-    vis = [1, 2, 3, 4]
-    """
-
     if 1 in graph:
         visited.add(1)
         to_visite.append(1)
