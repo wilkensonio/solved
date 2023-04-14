@@ -1,14 +1,14 @@
 import sys
 
 
-def parse_input(flights: list):  # -> dict, list
+def parse_input(airports: list):  # -> dict, list
 
-    n_trips = (int)(flights[0][0])
-    check_safe = [i for arr in flights[n_trips+1:] for i in arr]
+    n_trips = int(airports[0][0])
+    check_safe = [i for arr in airports[n_trips + 1:] for i in arr]
 
     flight_graph = {}
 
-    for dep, des in flights[1:n_trips + 1]:
+    for dep, des in airports[1:n_trips + 1]:
         if dep not in flight_graph:
             flight_graph[dep] = [des]
         else:
@@ -27,7 +27,7 @@ def find_safe_cities(from_parse: list):
         if city in visited:
             safe.add(city)
             return
-        if city not in visited and city in visit:
+        if city in visit:
             return
 
         visited.add(city)
@@ -52,9 +52,7 @@ def find_safe_cities(from_parse: list):
 
 flights = []
 
-
 for flight in sys.stdin:
-
     flights.append(flight.split())
 
 find_safe_cities(flights)
