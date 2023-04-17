@@ -17,37 +17,42 @@ def parse_input(airports: list):  # -> dict, list
     return flight_graph, check_safe
 
 
-def find_safe_cities(from_parse: list):
-    graph, check = parse_input(from_parse)
-    visited = set()  # remember
+def find_safe_cities(from_parse: list) -> str:
+    graph, cities_to_check = parse_input(from_parse)
     visit = set()
-    safe = set()  # cycle detected
+    visited = set()  # remember visited nodes
 
     def dfs(city: str):
-        if city in visited:
-            safe.add(city)
-            return
         if city in visit:
+            # safe.add(city)
+            return True
+
+        if city in visited:
             return
 
-        visited.add(city)
         visit.add(city)
+        visited.add(city)
 
-        for dest in graph.get(city, []):
-            dfs(dest)
+        for destination in graph.get(city, []):
+            if dfs(destination):
+                return True
+            # if destination in safe:
+            #     safe.add(destination)
+            #     return True
 
-        visited.remove(city)
+        visit.remove(city)
 
     res = []
-    for flight in check:
-        visit.clear()
-        dfs(flight)
-        if flight in safe:
-            res.append(flight + ' safe')
-        else:
-            res.append(flight + ' trapped')
 
-    print('\n'.join(res))
+    for location in cities_to_check:
+        # visited.clear()
+        if dfs(location):
+            # if location in safe:
+            res.append(location + ' safe')
+        else:
+            res.append(location + ' trapped')
+
+    return '\n'.join(res)
 
 
 flights = []
@@ -55,4 +60,4 @@ flights = []
 for flight in sys.stdin:
     flights.append(flight.split())
 
-find_safe_cities(flights)
+print(find_safe_cities(flights))

@@ -7,4 +7,6 @@ Baltimore Arlington
 San_Antonio
 Baltimore
 New_York
- 
+San_Antonio
+Dallas
+Dallas
