@@ -2,45 +2,43 @@ from sys import stdin
 
 
 def grid_setup(matrix):
-    # N X M grid
+    print(matrix)
     n, m = (int)(matrix[0]), (int)(matrix[1])
 
     grid = []
     for row in matrix[2:]:
         grid.append([int(x) for x in row])
-
     return grid, n, m
 
 
 def find_path(matrix):
     start = (0, 0)
     grid, n, m = grid_setup(matrix)
-    end_y, end_x = (len(grid) - 1, len(grid[0]) - 1)
+    len_y, len_x = (len(grid) - 1, len(grid[0]) - 1)
 
     visited = set([start])
     current_node = [(start, 0)]
 
     while current_node:
-        node, num_moves = current_node.pop(0)
+        (y, x), num_moves = current_node.pop(0)
 
-        max_jump = grid[node[0]][node[1]]
+        max_jump = grid[y][x]
 
-        directions = [(node[1] + max_jump, node[0]),
-                      (node[1] - max_jump, node[0]),
-                      (node[1], node[0] + max_jump),
-                      (node[1], node[0] - max_jump)]
+        directions = [(y + max_jump, x),
+                      (y - max_jump, x),
+                      (y, x + max_jump),
+                      (y, x - max_jump)]
 
-        for next_node_y, next_node_x in directions:
-            if (0 <= next_node_y <= end_y
-                and 0 <= next_node_x <= end_x
-                and (next_node_y, next_node_x)
+        for next_y, next_x in directions:
+            if (0 <= next_y <= len_y
+                and 0 <= next_x <= len_x
+                and (next_y, next_x)
                     not in visited):
-
-                visited.add((next_node_y, next_node_x))
+                visited.add((next_y, next_x))
                 current_node.append(
-                    ((next_node_y, next_node_x), num_moves + 1))
+                    ((next_y, next_x), num_moves + 1))
 
-        if node == (n - 1, m - 1):
+        if (y, x) == (n - 1, m - 1):
             return num_moves
 
     return -1
