@@ -1,3 +1,31 @@
+# n = length of string
+# Time: O(n)
+# Space: O(n)
+
+"""
+most frequent char
+Write a function, most_frequent_char, that takes in a string as an argument.
+ The function should return the most frequent character of the string.
+ If there are ties, return the character that appears earlier in the string.
+You can assume that the input string is non-empty.
+"""
+
+
+def most_frequent_char(s):
+    mapper = {}
+    maximum = None
+
+    for i in range(len(s)):
+        mapper[s[i]] = 1 + mapper.get(s[i], 0)
+
+    for c in s:
+        if maximum is None or mapper[c] > mapper[maximum]:
+            maximum = c
+    return maximum
+
+
+print(most_frequent_char('riverbed'))
+
 # n= length of string 1
 # m= length of string 2
 # time O(n + m)
