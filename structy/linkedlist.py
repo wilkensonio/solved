@@ -157,12 +157,16 @@ def merge_lists(head_1, head_2):
     if current_2 is not None: tail.next = current_2
 
     return dummy_head.next
+
+
 """
 Write a function, is_univalue_list, that takes in the head
 of a linked list as an argument. The function should return a
 boolean indicating whether or not the linked list contains
 exactly one unique value. You may assume that the input list is non-empty. 
 """
+
+
 def is_univalue_list(head):
     current = head
     while current is not None:
@@ -171,9 +175,34 @@ def is_univalue_list(head):
         current = current.next
     return True
 
+
 # def is_univalue_list(head, prev_val=None):
 #     if head is None:
 #         return True
 #     if prev_val is not None and head.val != prev_val:
 #         return False
 #     return is_univalue_list(head.next, head.val)
+
+
+""" 
+Write a function, longest_streak, that takes in the head of a
+ linked list as an argument. The function should return the length 
+ of the longest consecutive streak of the same value within the list."""
+
+
+def longest_streak(head):
+    max_streak = 0
+    current_streak = 0
+    prev_val = None
+
+    current = head
+    while current is not None:
+        if prev_val == current.val:
+            current_streak += 1
+        else:
+            current_streak = 1
+        prev_val = current.val
+        if max_streak < current_streak:
+            max_streak = current_streak
+        current = current.next
+    return max_streak
