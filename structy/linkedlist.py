@@ -1,3 +1,34 @@
+
+
+
+def sort_array(arr):
+    left = 0
+    right = len(arr) - 1
+
+    def partition(arr, left, right):
+        pivot = arr[right]  # last elm
+        i = left - 1  # -1
+
+        for j in range(left, right):
+            if arr[j] <= pivot:
+                i += 1
+                arr[i], arr[j] = arr[j], arr[i]
+
+        arr[i + 1], arr[right] = arr[right], arr[i + 1]
+        return i + 1
+
+    def quicksort(arr, left, right):
+        if left < right:
+            pivot_index = partition(arr, left, right)
+            quicksort(arr, left, pivot_index - 1)
+            quicksort(arr, pivot_index + 1, right)
+
+    quicksort(arr, left, right)
+
+
+
+
+
 class Node:
     def __init__(self, value):
         self.value = value
