@@ -1,32 +1,4 @@
-
-
-
-def sort_array(arr):
-    left = 0
-    right = len(arr) - 1
-
-    def partition(arr, left, right):
-        pivot = arr[right]  # last elm
-        i = left - 1  # -1
-
-        for j in range(left, right):
-            if arr[j] <= pivot:
-                i += 1
-                arr[i], arr[j] = arr[j], arr[i]
-
-        arr[i + 1], arr[right] = arr[right], arr[i + 1]
-        return i + 1
-
-    def quicksort(arr, left, right):
-        if left < right:
-            pivot_index = partition(arr, left, right)
-            quicksort(arr, left, pivot_index - 1)
-            quicksort(arr, pivot_index + 1, right)
-
-    quicksort(arr, left, right)
-
-
-
+x = [1, 3, 6, 5, 8, 5, 3, 5, 9]
 
 
 class Node:
@@ -185,3 +157,23 @@ def merge_lists(head_1, head_2):
     if current_2 is not None: tail.next = current_2
 
     return dummy_head.next
+"""
+Write a function, is_univalue_list, that takes in the head
+of a linked list as an argument. The function should return a
+boolean indicating whether or not the linked list contains
+exactly one unique value. You may assume that the input list is non-empty. 
+"""
+def is_univalue_list(head):
+    current = head
+    while current is not None:
+        if current.val != head.val:
+            return False
+        current = current.next
+    return True
+
+# def is_univalue_list(head, prev_val=None):
+#     if head is None:
+#         return True
+#     if prev_val is not None and head.val != prev_val:
+#         return False
+#     return is_univalue_list(head.next, head.val)
