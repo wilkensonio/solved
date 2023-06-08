@@ -206,3 +206,57 @@ def longest_streak(head):
             max_streak = current_streak
         current = current.next
     return max_streak
+
+
+"""Write a function, remove_node, that takes in the head of a linked
+list and a target value as arguments. The function should delete
+the node containing the target value from the linked list and
+return the head of the resulting linked list. If the target
+appears multiple times in the linked list, only remove the first
+instance of the target in the list.
+Do this in-place.
+You may assume that the input list is non-empty.
+You may assume that the input list contains the target."""
+
+
+def remove_node(head, target_val):
+    current = head
+    prev = None
+    if head.val == target_val:
+        return head.next
+    while current is not None:
+        if current.val == target_val:
+            prev.next = current.next
+            break
+        prev = current
+        current = current.next
+
+    return head
+
+
+"""Write a function, insert_node, that takes in the head of a linked list, a value, and an index.
+The function should insert a new node with the value into the list at the specified index. 
+Consider the head of the linked list as index 0. The function should return the head of the
+resulting linked list.
+Do this in-place.
+You may assume that the input list is non-empty and the index is not greater than 
+the length of the input list."""
+
+
+def insert_node(head, value, index):
+    count = 0
+    current = head
+    if index == 0:
+        h = Node(value)
+        h.next = head
+        return h
+    while current is not None:
+        if count == index - 1:
+            next_node = head.next
+            temp = current.next
+            current.next = Node(value)
+            current.next.next = temp
+        prev = head
+        count += 1
+        current = current.next
+    return head
