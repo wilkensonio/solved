@@ -33,4 +33,28 @@ def valid_sudoku(board):
 	return True
 
 
-print(valid_sudoku(grid_b))
+# print(valid_sudoku(grid_b))
+def isPalindrome(s: str) -> bool:
+	i, j = 0, len(s) - 1
+	
+	while i < j:
+		while i < j and not alpha_num(s[i]):
+			i += 1
+		while j > i and not alpha_num(s[j]):
+			j -= 1
+		if s[i].lower() != s[j].lower():
+			return False
+		i, j = i + 1, j + 1
+	return True
+
+
+def alpha_num(char):
+	return (
+		ord('A') <= ord(char) <= ord('Z')
+		or ord('a') <= ord(char) <= ord('z')
+		or ord('0') <= ord(char) <= ord('9')
+	)
+
+
+print(isPalindrome("0P"))
+print(alpha_num('-'))
