@@ -260,3 +260,23 @@ def insert_node(head, value, index):
         count += 1
         current = current.next
     return head
+
+
+def add_list(head1, head2, carry=0):
+    if head1 is None and head2 is None and carry == 0:
+        return None
+
+    val_1 = 0 if head1 is None else head1.val
+    val_2 = 0 if head2 is None else head2.val
+
+    sum_v = val_1 + val_2 + carry
+    next_carry = 1 if sum_v > 9 else 0
+
+    digit = sum_v % 10
+    result_node = Node(digit)
+
+    next_1 = None if head1 is None else head1.next
+    next_2 = None if head2 is None else head2.next
+
+    result_node.next = add_list(next_1, next_2, next_carry)
+    return result_node
