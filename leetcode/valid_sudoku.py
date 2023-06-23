@@ -1,6 +1,6 @@
-import collections
+import collections as cd
 
-_board = [["5", "3", ".", ".", "7", ".", ".", ".", "."],
+grid_b = [["5", "3", ".", ".", "7", ".", ".", ".", "."],
           ["6", ".", ".", "1", "9", "5", ".", ".", "."],
           [".", "9", "8", ".", ".", ".", ".", "6", "."],
           ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
@@ -8,29 +8,29 @@ _board = [["5", "3", ".", ".", "7", ".", ".", ".", "."],
           ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
           [".", "6", ".", ".", ".", ".", "2", "8", "."],
           [".", ".", ".", "4", "1", "9", ".", ".", "5"],
-          [".", ".", ".", ".", "8", ".", ".", "7", "9"]],
+          [".", ".", ".", ".", "8", ".", ".", "7", "9"]]
 
 
-def valid_sudoku(board: list[[str]]):
-	valid_row = collections.defaultdict(set)
-	valid_col = collections.defaultdict(set)
-	valid_grid = collections.defaultdict(set)  # sub-grid
-
-	for row in range(len(board)):
-		for col in range(len(board)):
-			if board[row][col] == '.':
+def valid_sudoku(board):
+	row = cd.defaultdict(set)
+	col = cd.defaultdict(set)
+	grid = cd.defaultdict(set)  # key = (r // 3, c // 3)
+	
+	for r in range(len(board)):
+		for c in range(len(board)):
+			if board[r][c] == '.':
 				continue
-			if (board[row][col] in valid_row[row]
-					or board[row][col] in valid_col[col]
-					or board[row][col] in valid_grid[(row // 3, col // 3)]):
+			if (
+				board[r][c] in row[r]
+				or board[r][c] in col[c]
+				or board[r][c] in grid[(r // 3, c // 3)]
+			):
 				return False
-			valid_row[row].add(board[row][col])
-			valid_col[col].add(board[row][col])
-			valid_grid[(row // 3, col // 3)].add(board[row][col])
-	# print(dict(valid_row))
-	# print(valid_col)
-	print(valid_grid)
+			row[r].add(board[r][c])
+			col[c].add(board[r][c])
+			grid[(r // 3, c // 3)].add(board[r][c])
+	
 	return True
 
 
-print(valid_sudoku(_board))
+print(valid_sudoku(grid_b))
