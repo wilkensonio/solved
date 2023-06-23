@@ -2,10 +2,10 @@ from collections import deque
 
 
 class Node:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
+	def __init__(self, val):
+		self.val = val
+		self.left = None
+		self.right = None
 
 
 a = Node('A')
@@ -30,64 +30,64 @@ c.right = f
 
 
 def tree_includes(root, target):
-    if not root:
-        return False
-    stack = [root]
-    while stack:
-        curr = stack.pop()
-        if curr.val == target:
-            return True
-        if curr.left:
-            stack.append(curr.left)
-        if curr.right:
-            stack.append(curr.right)
+	if not root:
+		return False
+	stack = [root]
+	while stack:
+		curr = stack.pop()
+		if curr.val == target:
+			return True
+		if curr.left:
+			stack.append(curr.left)
+		if curr.right:
+			stack.append(curr.right)
 
-    return False
+	return False
 
 
 # print(tree_includes(a, 'E'))
 
 
 def depth_first_values(root):
-    if not root:
-        return []
-    result = list()
-    stack = [root]
-    while stack:
-        current = stack.pop()
-        result.append(current.val)
-        if current.right:
-            stack.append(current.right)
-        if current.left:
-            stack.append(current.left)
-    return result
+	if not root:
+		return []
+	result = list()
+	stack = [root]
+	while stack:
+		current = stack.pop()
+		result.append(current.val)
+		if current.right:
+			stack.append(current.right)
+		if current.left:
+			stack.append(current.left)
+	return result
 
 
 # print(depth_first_values(a))
 
 
 def dfs_values(root: Node) -> list[str]:
-    if root is None:
-        return []
-    left_val = dfs_values(root.left)
-    right_val = dfs_values(root.right)
-    return [root.val, *left_val, *right_val]
+	if root is None:
+		return []
+	left_val = dfs_values(root.left)
+	right_val = dfs_values(root.right)
+	return [root.val, *left_val, *right_val]
 
 
 def bfs_values(root: Node):
-    if not root:
-        return []
-    queue = deque([root])
-    res = []
-    while queue:
-        current = queue.popleft()
-        res.append(current.val)
-        if current.left:
-            queue.append(current.left)
-        if current.right:
-            queue.append(current.right)
+	if not root:
+		return []
+	queue = deque([root])
+	res = []
+	while queue:
+		current = queue.popleft()
+		res.append(current.val)
+		if current.left:
+			queue.append(current.left)
+		if current.right:
+			queue.append(current.right)
 
-    return res
+	return res
 
 
 # print(bfs_values(a))
@@ -106,20 +106,20 @@ c.right = f
 
 
 def tree_sum(root):
-    if not root:
-        return 0
+	if not root:
+		return 0
 
-    res = 0
-    stack = [root]
-    while stack:
-        curr = stack.pop()
-        res += curr.val
+	res = 0
+	stack = [root]
+	while stack:
+		curr = stack.pop()
+		res += curr.val
 
-        if curr.left:
-            stack.append(curr.left)
-        if curr.right:
-            stack.append(curr.right)
-    return res
+		if curr.left:
+			stack.append(curr.left)
+		if curr.right:
+			stack.append(curr.right)
+	return res
 
 
 # print(tree_sum(a))
@@ -139,18 +139,18 @@ c.right = f
 
 
 def tree_min_value(root):
-    min_val = float('inf')
-    stack = [root]
+	min_val = float('inf')
+	stack = [root]
 
-    while stack:
-        curr = stack.pop()
-        if curr.val < min_val:
-            min_val = curr.val
-        if curr.left:
-            stack.append(curr.left)
-        if curr.right:
-            stack.append(curr.right)
-    return min_val
+	while stack:
+		curr = stack.pop()
+		if curr.val < min_val:
+			min_val = curr.val
+		if curr.left:
+			stack.append(curr.left)
+		if curr.right:
+			stack.append(curr.right)
+	return min_val
 
 
 # print(tree_min_value(a))
@@ -170,11 +170,54 @@ c.right = f
 
 
 def max_path_sum(root):
-    if not root:
-        return float('-inf')
-    if not root.left and not root.right:
-        return root.val
-    return root.val + max(max_path_sum(root.left), max_path_sum(root.right))
+	if not root:
+		return float('-inf')
+	if not root.left and not root.right:
+		return root.val
+	return root.val + max(max_path_sum(root.left), max_path_sum(root.right))
 
 
-print(max_path_sum(a))
+# print(max_path_sum(a))
+
+a = Node("a")
+b = Node("b")
+c = Node("c")
+d = Node("d")
+e = Node("e")
+f = Node("f")
+
+a.left = b
+a.right = c
+b.left = d
+b.right = e
+c.right = f
+
+
+def path_finder(root, target):
+	res = _path_finder(root, target)
+	if not res:
+		return None
+	else:
+
+		return res[::-1]
+
+
+def _path_finder(root, target):
+	if not root:
+		return None
+	if root.val == target:
+		return [root.val]
+
+	left_arr = _path_finder(root.left, target)
+	if left_arr:
+		left_arr.append(root.val)
+		return left_arr
+
+	right_arr = _path_finder(root.right, target)
+	if right_arr:
+		right_arr.append(root.val)
+		return right_arr
+	return None
+
+
+print(path_finder(a, 'e'))
