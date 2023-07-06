@@ -41,7 +41,7 @@ def tree_includes(root, target):
 			stack.append(curr.left)
 		if curr.right:
 			stack.append(curr.right)
-
+	
 	return False
 
 
@@ -86,7 +86,7 @@ def bfs_values(root: Node):
 			queue.append(current.left)
 		if current.right:
 			queue.append(current.right)
-
+	
 	return res
 
 
@@ -108,13 +108,13 @@ c.right = f
 def tree_sum(root):
 	if not root:
 		return 0
-
+	
 	res = 0
 	stack = [root]
 	while stack:
 		curr = stack.pop()
 		res += curr.val
-
+		
 		if curr.left:
 			stack.append(curr.left)
 		if curr.right:
@@ -141,7 +141,7 @@ c.right = f
 def tree_min_value(root):
 	min_val = float('inf')
 	stack = [root]
-
+	
 	while stack:
 		curr = stack.pop()
 		if curr.val < min_val:
@@ -198,7 +198,7 @@ def path_finder(root, target):
 	if not res:
 		return None
 	else:
-
+		
 		return res[::-1]
 
 
@@ -207,12 +207,12 @@ def _path_finder(root, target):
 		return None
 	if root.val == target:
 		return [root.val]
-
+	
 	left_arr = _path_finder(root.left, target)
 	if left_arr:
 		left_arr.append(root.val)
 		return left_arr
-
+	
 	right_arr = _path_finder(root.right, target)
 	if right_arr:
 		right_arr.append(root.val)
@@ -221,3 +221,26 @@ def _path_finder(root, target):
 
 
 print(path_finder(a, 'e'))
+
+
+# def tree_value_count(root, target):
+#   if not root:
+#       return 0
+#   match = 1 if root.val == target else 0
+#   return match + tree_value_count(root.left, target) + tree_value_count(root.right, target)
+
+def tree_value_count(root, target):
+	if not root:
+		return 0
+	queue = deque([root])
+	count = 0
+	while queue:
+		curr = queue.popleft()
+		if curr.val == target:
+			count += 1
+		
+		if curr.left:
+			queue.append(curr.left)
+		if curr.right:
+			queue.append(curr.right)
+	return count
