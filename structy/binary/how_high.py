@@ -7,11 +7,13 @@ The height of a binary tree is defined as the maximal number of edges from the r
 If the tree is empty, return -1.
 """
 
+
 class Node:
     def __init__(self, val):
         self.val = val
         self.left = None
         self.right = None
+
 
 def how_high(root):
     if not root:
@@ -28,6 +30,7 @@ def how_high(root):
         if node.left:
             stack.append((node.left, count + 1))
     return max_len
+
 
 # def how_high(root):
 #   if not root:
@@ -60,6 +63,4 @@ e.left = g
 # d   e     f
 #    /
 #   g
-print(how_high(a)) # -> 3
-
-
+print(how_high(a))  # -> 3
