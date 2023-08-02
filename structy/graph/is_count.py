@@ -8,7 +8,6 @@ An island is a vertically or horizontally connected region of land.
 
 
 def island_count(grid: [[str]]):
-
     visited = [[0] * len(grid[0]) for _ in range(len(grid))]
 
     count = 0
@@ -63,6 +62,7 @@ def island_count(grid):
             if explore(grid, r, c, visited) == True:
                 count += 1
     return count
+
 
 def explore(grid, r, c, visited):
     row_inbounds = 0 <= r < len(grid)
