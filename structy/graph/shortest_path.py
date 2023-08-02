@@ -15,6 +15,7 @@ def build_graph(edge_lst):
 
 def shortest_path(b_graph, src, dst):
     graph = build_graph(b_graph)
+
     visited = set(src)
     queue = deque([(src, 0)])
 
@@ -44,4 +45,3 @@ edges = [
 # print(build_graph(edges))
 
 print(shortest_path(edges, 'a', 'e'))
-
