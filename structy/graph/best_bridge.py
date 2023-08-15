@@ -1,3 +1,12 @@
+"""
+best bridge
+Write a function, best_bridge, that takes in a grid as an argument.
+The grid contains water (W) and land (L). There are exactly two islands in the grid.
+An island is a vertically or horizontally connected region of land.
+Return the minimum length bridge needed to connect the two islands. A bridge does not need to form a straight line.
+"""
+
+
 def best_bridge(grid):
     main_island = None
     for r in range(len(grid)):
@@ -29,12 +38,6 @@ def best_bridge(grid):
                 visited.add(neighbor_pos)
 
 
-def is_inbound(grid, r, c):
-    row_inbounds = 0 <= r < len(grid)
-    col_inbounds = 0 <= c < len(grid[0])
-    return row_inbounds and col_inbounds
-
-
 def explore(grid, row, col, visited):
     if not is_inbound(grid, row, col) or grid[row][col] == 'W':
         return visited
@@ -54,6 +57,12 @@ def explore(grid, row, col, visited):
     return visited
 
 
+def is_inbound(grid, r, c):
+    row_inbounds = 0 <= r < len(grid)
+    col_inbounds = 0 <= c < len(grid[0])
+    return row_inbounds and col_inbounds
+
+
 grid = [
     ["W", "W", "W", "L", "L"],
     ["L", "L", "W", "W", "L"],
@@ -62,4 +71,8 @@ grid = [
     ["W", "W", "W", "W", "W"],
     ["W", "W", "W", "W", "W"],
 ]
+
 print(best_bridge(grid))  # -> 1
+
+
+ 
