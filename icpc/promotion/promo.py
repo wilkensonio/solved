@@ -12,7 +12,7 @@ def top_sort(graph):
                 dfs(neighbor)
         topological_order.append(node) # add current node to the topological order
      
-    n = num_emp   
+    n = max(graph) + 1   
     visited = [False] * n  # keep track of vivisted node (deault false)
     
     topological_order = []  # sort the topological order (default empty) 
@@ -26,28 +26,27 @@ def top_sort(graph):
 def promotions(interval_start, interval_end, num_employee, rules): 
     ''' interval [a, b] num_emplyee:int num_rules/precedence : int rules: tuples'''
     graph = defaultdict(list)
-    in_degree = [0] * num_employee  # keep track of in_degrees of employes
+    n_degree = [0] * num_employee  # keep track of n_degrees of employes
     
     for a, b in rules:  # populate graph base on precedence rules   
         graph[a].append(b)   # employee 'a' precedes employee 'b' 
-        in_degree[b] += 1  # increment in_degree of 'b'
+        n_degree[b] += 1  # increment in_degree of 'b'
     
-
+    print(graph)
+    print(n_degree)
     top_order = top_sort(graph)  # topological order employees -> [int]
  
     # compute number of emp that is certained to be promoted for each interval [a, b]
     def compute_promotion(interval1, interval2):
         # emp up to num of promotions interval 1 and 2
-        guarantee = [e for e in top_order if in_degree[e] == 0] # no dependence 
+        guarantee = [e for e in top_order if n_degree[e] == 0] # no dependence 
         promotion1 = top_order[:interval1]  
         promotion2 = top_order[:interval2]
         no_promotion = len(top_order) 
         num_emp_to_promote1 = 0
         num_emp_to_promote2 = 0 
         eligible = set() # eligible may get promoted
-        
-        if interval1 < len(guarantee) and interval2 < len(guarantee):
-            pass
+       
         # hangle interval a promotion less than quarantee 
         if len(guarantee) > interval1 and len(guarantee) <=interval2 :
             eligible_emp(guarantee, eligible)  # eligible emp no promotion guarantee
@@ -59,11 +58,13 @@ def promotions(interval_start, interval_end, num_employee, rules):
                 promotion2 = promotion2[:-1] # promo 2 num emp  is more than guarantee and eligible
                 num_emp_to_promote2 = len(promotion2) # update num of promotion for interval b
                 no_promotion = no_promotion - promoted # update no promotion 
+                
             print(num_emp_to_promote1, num_emp_to_promote2, no_promotion, sep='\n')
+            
         # if in_degree is zero emp is guarantee to be promoted
         if len(guarantee) <= len(promotion1):
             for i in range(len(promotion1) -1 , 0 , -1):
-                if in_degree[promotion1[i]] != 0:  
+                if n_degree[promotion1[i]] != 0:  
                     promotion1 = promotion1[:-1] # remove employee that depend on others
                 else:
                     if len(promotion1) > interval1:
@@ -96,4 +97,5 @@ interval_start, interval_end, num_emp, num_rules = map(int, sys.stdin.readline()
 rules = [tuple(map(int, sys.stdin.readline().split())) for _ in range(num_rules)]
 
 promotions(interval_start, interval_end, num_emp, rules)
+#  =========================================================
  
