@@ -11,11 +11,11 @@ public class Main {
 
     public static int coinChange(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
-        for (int i = 1; i <= amount; i++) {
-            dp[i] = amount + 1;
+        for (int amt = 1; amt <= amount; amt++) {
+            dp[amt] = amount + 1;
             for (int coin : coins) {
-                if (coin <= i) {
-                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+                if (coin <= amt) {
+                    dp[amt] = Math.min(dp[amt], dp[amt - coin] + 1);
                 }
             }
         }
